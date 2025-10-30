@@ -66,6 +66,37 @@ Rezultati
 ---------
 Skripta ispisuje osnovne statistike i korelacije, zatim izlazne metrike (MSE i R²) i crta grafikone koji prikazuju stvarne i predviđene vrednosti za test skup. Detaljni numerički rezultati zavise od sadržaja `Life_Expectancy_Data.csv` i trenutne obrade podataka.
 
+## Rezultati modela
+
+Rezultati moje regresije:
+- MSE: 12.413014602718393
+- R²: 0.8322967952061454
+
+### Poređenje sa sklearn modelom
+
+Uporedio sam moju implementaciju regresije sa sklearn implementacijom. Rezultati su praktično isti:
+
+Moja implementacija:
+- MSE = 12.413014602718393
+- R²  = 0.8322967952061454
+
+Sklearn implementacija:
+- MSE = 12.413014603039072
+- R²  = 0.832296795201813
+
+Zaključak: moja regresija i sklearn regresija daju iste rezultate.
+
+### Poređenje sa Random Forest
+
+Uporedio sam regresiju sa Random Forest modelom. Random Forest postiže znatno bolje rezultate:
+
+Random Forest rezultati:
+- MSE = 2.658773272727277
+- R²  = 0.9640792496482714
+
+Zaključak: Random Forest model daje bolje performanse (manji MSE i viši R²) u poređenju sa linearnom regresijom koju sam implementirao.
+
+
 Autor
 -----
 Mihajlo Timo (korisničko ime: @mihajlotimo)
