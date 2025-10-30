@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
 
 #Ucitavanje
 df = pandas.read_csv("Life_Expectancy_Data.csv")
@@ -101,5 +102,31 @@ plt.scatter(y_test, y_pred_sklearn, label="Sklearn regresija", alpha=0.6, color=
 plt.xlabel("Stvarni životni vek")
 plt.ylabel("Predvidjeni životni vek")
 plt.title("Poređenje: Moja vs Sklearn linearna regresija")
+plt.legend()
+plt.show()
+
+
+
+rf_model = RandomForestRegressor(n_estimators=100, random_state=29)
+rf_model.fit(X_train, y_train)
+
+# Predikcija
+y_pred_rf = rf_model.predict(X_test)
+
+# Evaluacija
+mse_rf = mean_squared_error(y_test, y_pred_rf)
+r2_rf = r2_score(y_test, y_pred_rf)
+
+print("\nRandom Forest rezultati:")
+print("MSE =", mse_rf)
+print("R²  =", r2_rf)
+
+# Dodaj na graf poređenja
+plt.figure(figsize=(6,6))
+plt.scatter(y_test, y_pred_sklearn, label="Linearna regresija", alpha=0.6, color='red')
+plt.scatter(y_test, y_pred_rf, label="Random Forest", alpha=0.6, color='green')
+plt.xlabel("Stvarni životni vek")
+plt.ylabel("Predviđeni životni vek")
+plt.title("Poređenje: Linearna vs Random Forest regresija")
 plt.legend()
 plt.show()
