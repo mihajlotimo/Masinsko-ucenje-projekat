@@ -1,110 +1,75 @@
-# Mašinsko učenje — Projekat: Predviđanje životnog veka
+# Predviđanje životnog veka — life_expectancy2.py
 
 Kratak opis
 ----------
-Ovaj projekat koristi skup podataka Life_Expectancy_Data.csv da prikaže jednostavan tok analize i osnovne linearne regresije u Pythonu. Uključuje:
-- čitanje i osnovno čišćenje podataka,
-- vizualizaciju (distribucija, scatter plot poređenja),
-- implementaciju linearne regresije "iz nule" (normalna jednačina),
-- poređenje sa sklearn.linear_model.LinearRegression,
-- evaluaciju modela pomoću MSE i R².
+Ovaj repo sadrži jednostavan projekat za analizu i predviđanje životnog veka koristeći linearne regresije. Glavni skript `life_expectancy2.py` učitava `Life_Expectancy_Data.csv`, radi osnovno čišćenje podataka, vizualizacije i trenira linearnu regresiju (sopstvena implementacija i poređenje sa sklearn).
 
-Struktura repozitorijuma
-------------------------
-- `Life_Expectancy_Data.csv` — ulazni skup podataka (staviti u root ili `data/` folder)
-- `src/` — (opciono) može sadržati skripte; trenutni glavni skript je primer koji ste poslali
-- `notebooks/` — (opciono) Jupyter notebook-ovi za eksperimentisanje
-- `requirements.txt` — popis Python zavisnosti
+Sadržaj repozitorijuma
+----------------------
+- `life_expectancy2.py` — glavni Python skript
+- `Life_Expectancy_Data.csv` — dataset sa podacima o očekivanom životnom veku
 - `README.md` — ovaj fajl
 
 Zahtevi
 -------
 - Python 3.8+
-- Preporučene biblioteke:
+- Biblioteke:
   - pandas
   - numpy
   - matplotlib
   - seaborn
   - scikit-learn
 
-Možete instalirati zavisnosti lokalno:
+Instalacija
+----------
+Preporučeno je virtuelno okruženje:
 ```bash
 python -m venv venv
-source venv/bin/activate   # Linux / macOS
-venv\Scripts\activate      # Windows
-pip install -r requirements.txt
-```
-Ako nema `requirements.txt`, instalirajte direktno:
-```bash
+# Linux / macOS
+source venv/bin/activate
+# Windows (PowerShell)
+venv\Scripts\Activate.ps1
+
 pip install pandas numpy matplotlib seaborn scikit-learn
 ```
 
-Kako pokrenuti skript
----------------------
-1. Postavite fajl `Life_Expectancy_Data.csv` u root repozitorijuma ili u `data/` folder i prilagodite put u skriptu ako treba.
-2. Pokrenite Python skript koji ste napisali (npr. `life_expectancy_analysis.py`):
+Pokretanje
+---------
+1. Uveri se da su `life_expectancy2.py` i `Life_Expectancy_Data.csv` u istom folderu repozitorijuma (root), ili prilagodi put do CSV-a u skriptu.
+2. Pokreni:
 ```bash
-python life_expectancy_analysis.py
+python life_expectancy2.py
 ```
-Skript:
-- učitava CSV,
-- čisti nazive kolona (zamena razmaka sa `_`),
-- prikazuje osnovne statistike i prvih 5 redova,
-- crta histogram distribucije `Life_expectancy`,
-- računa korelaciju numeričkih kolona sa `Life_expectancy`,
-- uklanja redove sa nedostajućim vrednostima (`dropna()`),
-- pravi X (bez `Country`, `Status`, `Life_expectancy`) i y,
-- deli podatke na train/test,
-- uči lin. regresiju sopstvenom implementacijom (normalna jednačina),
-- pravi predikcije i meri MSE i R²,
-- upoređuje rezultate sa sklearn-ovom implementacijom,
-- crta poređenje predikcija.
+Skript će:
+- učitati CSV iz `Life_Expectancy_Data.csv` i očistiti nazive kolona (zamena razmaka sa `_`),
+- ispisati prve redove i osnovnu statistiku,
+- prikazati histogram ciljne varijable (`Life_expectancy`),
+- ukloniti redove sa nedostajućim vrednostima (koristi `dropna()`),
+- podeliti podatke na train/test,
+- učiti linearnu regresiju sopstvenom implementacijom (normalna jednačina),
+- porediti rezultate sa sklearn-ovom `LinearRegression`,
+- prikazati metrike MSE i R² i nekoliko grafika.
 
-Objašnjenje ključnih delova koda
---------------------------------
-- Čišćenje kolona:
-  - `df.columns = df.columns.str.strip().str.replace(" ", "_")` — olakšava pristup kolonama.
-- Obrada nedostajućih vrednosti:
-  - Trenutno se koristi `df.dropna()` što uklanja sve redove sa bar jednom NA vrednošću — to može znatno smanjiti skup podataka.
-- Model "iz nule":
-  - Funkcija koristi normalnu jednačinu: theta = (X_b^T X_b)^(-1) X_b^T y.
-  - Ova metoda radi dobro za manje, dobro-posedne matrice, ali može biti numerički nestabilna ako je X^T X singularan.
-- Poređenje sa sklearn:
-  - Sklearn-ova `LinearRegression()` koristi optimizovane i numerički robusnije metode; očekujte vrlo slične rezultate ako nema numeričkih problema.
+Preporuke i napomene
+--------------------
+- dropna() može da ukloni veliki broj redova — razmisli o imputaciji ako je to problem.
+- Ako je X^T X singularan (kolinearnost), normalna jednačina može biti numerički nestabilna — razmotri Ridge ili sklearn implementaciju.
+- Možeš premestiti `Life_Expectancy_Data.csv` u `data/` folder i skriptu postaviti `pandas.read_csv("data/Life_Expectancy_Data.csv")`.
+- Dodaj `requirements.txt` komandom `pip freeze > requirements.txt` kad želiš da zamrzneš verzije biblioteka.
+- Ako želiš, mogu predložiti male izmene skripta: imputaciju, enkodovanje kategorija, skaliranje i cross-validation.
 
-Ograničenja i preporuke za poboljšanje
--------------------------------------
-- dropna() može izbaciti previše podataka — razmotrite imputaciju (npr. mean/median/knn) ili analizu kolona sa puno nedostataka.
-- Skaliranje i normalizacija: neke kolone mogu imati različite skale — isprobajte StandardScaler ili MinMaxScaler.
-- Kategorizacija: `Country` i `Status` su kategorizijske kolone — možete ih enkodovati (OneHotEncoder, Target Encoding) ako treba da budu deo X.
-- Regularizacija: za bolje opšteenje, koristiti Ridge/Lasso.
-- Numerička stabilnost: umesto normalne jednačine, koristiti gradient descent ili sklearn koji su optimizovani za velike i kolinearne setove.
-- Validacija: koristiti cross-validation (K-Fold) umesto samo jedne podele train/test.
-- Istraživačka analiza (EDA): dublja vizualizacija korelacija, heatmap, outlier detekcija.
+Kako da ubaciš dataset
+----------------------
+Ako želiš da dataset bude u repozitorijumu, možeš ga dodati putem GitHub web interfejsa: "Add file" → "Upload files" i izabrati `Life_Expectancy_Data.csv`. Ako želiš da i njega ubacim, potrebno je da mi dostaviš sadržaj CSV-a.
 
-Primer dodatnih komandi
------------------------
-Pokretanje Jupyter-a:
-```bash
-jupyter lab
-# ili
-jupyter notebook
-```
-Ako želite sačuvati zavisnosti u `requirements.txt`:
-```bash
-pip freeze > requirements.txt
-```
-
-Doprinos i verzionisanje
-------------------------
-- Ako želite da doprinesete, napravite fork, novu granu `feature/ime` i pošaljite Pull Request.
-- Dodajte opis promena i, po mogućstvu, male testove ili primer pokretanja.
+Doprinos
+-------
+Ako želiš da menjamo fajlove direktno preko GitHub-a, mogu napraviti novu granu sa predloženim promenama i otvoriti PR.
 
 Licenca
 -------
-Dodajte LICENSE fajl (npr. MIT) ako želite da omogućite drugima da koriste i menjaju kod.
+Dodaj LICENSE fajl (npr. MIT) ako želiš da drugi koriste kod.
 
 Kontakt
 -------
-Autor repo-a: @mihajlotimo  
-Ako želite, dopunite README sa e‑mail adresom ili linkovima do prezentacije/izveštaja.
+Repo autor: @mihajlotimo
