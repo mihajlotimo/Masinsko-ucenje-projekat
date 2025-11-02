@@ -110,6 +110,42 @@ Ipak, može se primetiti da **Random Forest** i naročito **XGBoost** daju **sta
 
 ---
 
+## Analiza značaja atributa (Ablacija)
+
+Kako bismo razumeli koji atributi najviše utiču na tačnost modela, sprovedena je **ablaciona analiza** — sistematsko uklanjanje pojedinačnih atributa i merenje pada performansi (R² vrednosti).
+
+| Rang | Uklonjen atribut (grupa)           | MSE        | R²         | Pad R²   |
+|------|------------------------------------|-------------|-------------|----------|
+| 1    | Country                            | 12.356      | 0.8331      | **0.1283** |
+| 2    | Year                               | 3.320       | 0.9551      | 0.0062   |
+| 3    | HIV/AIDS                           | 3.101       | 0.9581      | 0.0033   |
+| 4    | under-five_deaths                  | 2.904       | 0.9608      | 0.0006   |
+| 5    | infant_deaths                      | 2.899       | 0.9608      | 0.0006   |
+| 6    | thinness_5-9_years                 | 2.870       | 0.9612      | 0.0002   |
+| 7    | Adult_Mortality                    | 2.868       | 0.9612      | 0.0001   |
+| 8    | Schooling                          | 2.868       | 0.9613      | 0.0001   |
+| 9    | Alcohol                            | 2.864       | 0.9613      | 0.0001   |
+| 10   | Measles                            | 2.864       | 0.9613      | 0.0001   |
+
+### Tumačenje rezultata
+
+- Najveći pad R² vrednosti nastaje pri uklanjanju **kolona koje opisuju državu (Country)**.  
+  To ukazuje da geografski i ekonomski faktori (koji se indirektno izražavaju kroz "Country") imaju presudan značaj za očekivani životni vek.  
+- Atributi **Year** i **HIV/AIDS** takođe imaju značajan doprinos modelu — što je u skladu sa stvarnim svetskim trendovima zdravstvenog razvoja.  
+- Većina ostalih medicinskih indikatora (poput smrtnosti dece, gojaznosti i školovanja) imaju manji, ali ipak vidljiv uticaj.
+
+---
+
+## Zaključak
+
+U ovom projektu razvijen je i analiziran model za predviđanje očekivanog životnog veka.  
+Rezultati pokazuju da:
+
+- **Linearna regresija** daje solidne rezultate (R² ≈ 0.96), ali ima ograničenja u hvatanju složenih veza.  
+- **Random Forest** i **XGBoost** znatno poboljšavaju preciznost (R² ≈ 0.97), što potvrđuje snagu ensemble pristupa.  
+- **Ablaciona analiza** pokazuje da atributi vezani za zemlju porekla i zarazne bolesti imaju najveći uticaj na predviđanja modela.
+
+Sve u svemu, modeli su pokazali da je **životni vek rezultat kombinacije zdravstvenih, ekonomskih i geografskih faktora**, a primena naprednijih modela poput XGBoost-a omogućava njihovo preciznije modelovanje.
 
 
 Autor
