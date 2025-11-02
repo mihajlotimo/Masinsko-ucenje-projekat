@@ -69,32 +69,47 @@ Skripta ispisuje osnovne statistike i korelacije, zatim izlazne metrike (MSE i R
 ## Rezultati modela
 
 Rezultati moje regresije:
-- MSE: 12.413014602718393
-- R²: 0.8322967952061454
+- MSE: 2.858350957161336  
+- R²: 0.961382900827607  
 
 ### Poređenje sa sklearn modelom
-
-Uporedio sam moju implementaciju regresije sa sklearn implementacijom. Rezultati su praktično isti:
-
-Moja implementacija:
-- MSE = 12.413014602718393
-- R²  = 0.8322967952061454
-
-Sklearn implementacija:
-- MSE = 12.413014603039072
-- R²  = 0.832296795201813
-
-Zaključak: moja regresija i sklearn regresija daju iste rezultate.
-
-### Poređenje sa Random Forest
-
-Uporedio sam regresiju sa Random Forest modelom. Random Forest postiže znatno bolje rezultate:
+Sklearn implementacija linearne regresije:
+- MSE = 2.8583509571616847  
+- R²  = 0.9613829008276024  
 
 Random Forest rezultati:
-- MSE = 2.658773272727277
-- R²  = 0.9640792496482714
+- MSE = 2.5498629030303013  
+- R²  = 0.9655506583767737  
 
-Zaključak: Random Forest model daje bolje performanse (manji MSE i viši R²) u poređenju sa linearnom regresijom koju sam implementirao.
+XGBoost rezultati:
+- MSE = 2.332585139555057  
+- R²  = 0.9684861400813758  
+
+---
+
+### Vizuelno poređenje modela
+
+![Poređenje Linearne, Random Forest i XGBoost regresije](poredjenje.png)
+
+Na slici je prikazano **poređenje sva tri modela**:  
+- crvenom bojom označena je **linearna regresija**,  
+- zelenom **Random Forest**,  
+- žutom **XGBoost**.
+
+Svi modeli pokazuju visoku tačnost jer su tačke raspoređene blizu dijagonale (linije gde su stvarne i predviđene vrednosti jednake).  
+Ipak, može se primetiti da **Random Forest** i naročito **XGBoost** daju **stabilnije predikcije**, tj. tačke su bliže dijagonali, dok linearna regresija ima nešto veća odstupanja.
+
+---
+
+### Analiza rezultata
+
+- **Linearni model** (moja i sklearn implementacija) objašnjava oko **96% varijanse** u podacima (R² ≈ 0.961) — što je vrlo dobar rezultat.  
+- **Random Forest** daje još bolje performanse (R² ≈ 0.966) zahvaljujući mogućnosti da uhvati nelinearne odnose između varijabli.  
+- **XGBoost** postiže **najbolji rezultat** (R² ≈ 0.968, najmanji MSE), jer koristi mehanizam gradijentnog pojačavanja i vrlo efikasno koriguje greške prethodnih stabala.  
+- **Zaključak:** sva tri modela uspešno predviđaju očekivani životni vek, ali **Random Forest i XGBoost** daju preciznije i stabilnije rezultate u odnosu na linearnu regresiju.
+
+---
+
 
 
 Autor
