@@ -114,8 +114,7 @@ Ipak, može se primetiti da **Random Forest** i naročito **XGBoost** daju **sta
 
 Kako bismo razumeli koji atributi najviše utiču na tačnost modela, sprovedena je **ablaciona analiza** — sistematsko uklanjanje pojedinačnih atributa i merenje pada performansi (R² vrednosti).
 
-| Rang | Uklonjen atribut        
-| MSE        | R²         | Pad R²   |
+| Rang | Uklonjen atribut                   | MSE         | R²          | Pad R²   |
 |------|------------------------------------|-------------|-------------|----------|
 | 1    | Country                            | 12.356      | 0.8331      | **0.1283** |
 | 2    | Year                               | 3.320       | 0.9551      | 0.0062   |
