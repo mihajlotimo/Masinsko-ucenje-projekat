@@ -150,4 +150,4 @@ Sve u svemu, modeli su pokazali da je **životni vek rezultat kombinacije zdravs
 
 Autor
 -----
-Mihajlo Timo (korisničko ime: @mihajlotimo)
+Mihajlo Timotijević (korisničko ime: @mihajlotimo)
